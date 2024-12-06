@@ -1,0 +1,116 @@
+\documentclass[9pt]{beamer}
+\usetheme{Boadilla}
+\usepackage{amsmath}
+
+\subtitle{Effects of Performance and Non-performance Factors on AAV of Free Agent contracts in Baseball}
+\title{BTM301 Class Project}
+\author{Team 1}
+\institute{KAIST}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+\begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}
+    \frametitle{Introduction}
+    \begin{block}{Background}
+        \begin{itemize}
+            \item Free agent contracts in baseball are determined by various factors
+            \item Performance and non-performance factors are considered
+            \item Performance factors include statistics like ERA, OBP, etc.
+            \item Non-performance factors include team attendance, salary cap usage, etc.
+        \end{itemize}
+        
+    \end{block}
+\end{frame}
+
+\section{Model}
+\begin{frame}
+    \frametitle{Model}
+    \begin{block}{Hitter Model}
+        \begin{multline}
+            \log{AAV_{i}} = \beta_{0} 
+                + \beta_{WR}WR_{i} 
+                + \beta_{Atd}Atd_{i} 
+                + \beta_{SU}SU_{i}
+                + \beta_{L}L_{i} 
+                + \beta_{AGE}AGE_{i} \\
+                + \beta_{OBP}OBP_{i}
+                + \beta_{SLG}SLG_{i}
+                + \beta_{PA}PA_{i}
+                + \varepsilon_{i}
+        \end{multline}
+        where:
+        \begin{itemize}
+            \item $AAV_{i}$: AAV of free agent contract
+            \item $WR_{i}$: Win rate of the player's last team before free agency
+            \item $Atd_{i}$: Average attendance of team the player signed with
+            \item $SU_{i}$: Last season's salary cap usage of team the player signed with
+            \item $L_{i}$: Left-handedness of the player
+            \item $AGE_{i}$: Age of the player
+            \item $OBP_{i}$: On-base percentage of the player
+            \item $SLG_{i}$: Slugging percentage of the player
+            \item $PA_{i}$: Plate appearances of the player
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Model}
+    \begin{block}{Pitcher Model}
+        \begin{multline}
+            \log{AAV_{i}} = \beta_{0} 
+                + \beta_{WR}WR_{i} 
+                + \beta_{Atd}Atd_{i} 
+                + \beta_{SU}SU_{i}
+                + \beta_{L}L_{i} 
+                + \beta_{AGE}AGE_{i} \\
+                + \beta_{ERA}ERA_{i}
+                + \beta_{WHIP}WHIP_{i}
+                + \beta_{SO}SO_{i}
+                + \beta_{IP}IP_{i}
+                + \varepsilon_{i}
+        \end{multline}
+        where:
+        \begin{itemize}
+            \item $AAV_{i}$: AAV of free agent contract
+            \item $WR_{i}$: Win rate of the player's last team before free agency
+            \item $Atd_{i}$: Average attendance of team the player signed with
+            \item $SU_{i}$: Last season's salary cap usage of team the player signed with
+            \item $L_{i}$: Left-handedness of the player
+            \item $AGE_{i}$: Age of the player
+            \item $ERA_{i}$: Earned run average of the player
+            \item $WHIP_{i}$: Walks plus hits per inning pitched of the player
+            \item $SO_{i}$: Strikeouts of the player
+            \item $IP_{i}$: Innings pitched of the player
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{Data}
+\begin{frame}
+    \frametitle{Data}
+\end{frame}
+
+\section{Results}
+\begin{frame}
+    \frametitle{Results}
+\end{frame}
+
+\section{Discussion}
+\begin{frame}
+    \frametitle{Discussion}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}
+    \frametitle{Conclusion}
+\end{frame}
+\end{document}
