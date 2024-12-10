@@ -36,27 +36,29 @@
     \frametitle{Model}
     \begin{block}{Hitter Model}
         \begin{multline}
-            \log{AAV_{i}} = \beta_{0} 
-                + \beta_{WR}WR_{i} 
-                + \beta_{Atd}Atd_{i} 
-                + \beta_{SU}SU_{i}
-                + \beta_{L}L_{i} 
-                + \beta_{AGE}AGE_{i} \\
-                + \beta_{OBP}OBP_{i}
-                + \beta_{SLG}SLG_{i}
-                + \beta_{PA}PA_{i}
+            \log{AAV_{i}} = \beta_{WR} \log{WR_{i}}
+                + \beta_{Atd} \log{Atd_{i}} 
+                + \beta_{SU} \log{SU_{i}}
+                + \beta_{L} \log{(1 + L_{i})}
+                + \beta_{AGE}\log{AGE_{i}} \\
+                + \beta_{OBP}\log{OBP_{i}}
+                + \beta_{SLG}\log{SLG_{i}}
+                + \beta_{HR}\log{HR_{i}}
+                + \beta_{PA}\log{PA_{i}}
+                + \beta_{0} 
                 + \varepsilon_{i}
         \end{multline}
         where:
         \begin{itemize}
-            \item $AAV_{i}$: AAV of free agent contract
+            \item $AAV_{i}$: AAV of free agent contract, normalized by CPI at the year of signing
             \item $WR_{i}$: Win rate of the player's last team before free agency
-            \item $Atd_{i}$: Average attendance of team the player signed with
+            \item $Atd_{i}$: Average attendance at home game of team the player signed with
             \item $SU_{i}$: Last season's salary cap usage of team the player signed with
-            \item $L_{i}$: Left-handedness of the player
-            \item $AGE_{i}$: Age of the player
-            \item $OBP_{i}$: On-base percentage of the player
-            \item $SLG_{i}$: Slugging percentage of the player
+            \item $L_{i}$: Dummy variable indicating left-handedness of the player
+            \item $AGE_{i}$: Age of the player at the time of signing
+            \item $OBP_{i}$: On-base percentage of the player, divided by league average
+            \item $SLG_{i}$: Slugging percentage of the player, divided by league average
+            \item $HR_{i}$: Home runs of the player
             \item $PA_{i}$: Plate appearances of the player
         \end{itemize}
     \end{block}
@@ -66,28 +68,28 @@
     \frametitle{Model}
     \begin{block}{Pitcher Model}
         \begin{multline}
-            \log{AAV_{i}} = \beta_{0} 
-                + \beta_{WR}WR_{i} 
-                + \beta_{Atd}Atd_{i} 
-                + \beta_{SU}SU_{i}
-                + \beta_{L}L_{i} 
-                + \beta_{AGE}AGE_{i} \\
-                + \beta_{ERA}ERA_{i}
-                + \beta_{WHIP}WHIP_{i}
-                + \beta_{SO}SO_{i}
-                + \beta_{IP}IP_{i}
+            \log{AAV_{i}} = \beta_{WR} \log{WR_{i}}
+                + \beta_{Atd} \log{Atd_{i}} 
+                + \beta_{SU} \log{SU_{i}}
+                + \beta_{L} \log{(1 + L_{i})}
+                + \beta_{AGE}\log{AGE_{i}} \\
+                + \beta_{ERA}\log{ERA_{i}}
+                + \beta_{WHIP}\log{WHIP_{i}}
+                + \beta_{SO}\log{SO_{i}}
+                + \beta_{IP}\log{IP_{i}}
+                + \beta_{0} 
                 + \varepsilon_{i}
         \end{multline}
         where:
         \begin{itemize}
-            \item $AAV_{i}$: AAV of free agent contract
+            \item $AAV_{i}$: AAV of free agent contract, normalized by CPI at the year of signing
             \item $WR_{i}$: Win rate of the player's last team before free agency
-            \item $Atd_{i}$: Average attendance of team the player signed with
+            \item $Atd_{i}$: Average attendance at home game of team the player signed with
             \item $SU_{i}$: Last season's salary cap usage of team the player signed with
-            \item $L_{i}$: Left-handedness of the player
-            \item $AGE_{i}$: Age of the player
-            \item $ERA_{i}$: Earned run average of the player
-            \item $WHIP_{i}$: Walks plus hits per inning pitched of the player
+            \item $L_{i}$: Dummy variable indicating left-handedness of the player
+            \item $AGE_{i}$: Age of the player at the time of signing
+            \item $ERA_{i}$: Earned run average of the player, divided by league average
+            \item $WHIP_{i}$: Walks plus hits per inning pitched of the player, divided by league average
             \item $SO_{i}$: Strikeouts of the player
             \item $IP_{i}$: Innings pitched of the player
         \end{itemize}
@@ -97,6 +99,15 @@
 \section{Data}
 \begin{frame}
     \frametitle{Data}
+    \begin{block}
+        {Data Collection}
+        \begin{itemize}
+            \item 2010-2019 free agent contracts from MLB and KBO were collected
+            \item Performance data was collected from Baseball Reference and KBO's official website
+            \item Attendance data was collected from ESPN and KBO's official website
+            \item Salary cap usage data was collected from independent researcher's website
+        \end{itemize}
+    \end{block}
 \end{frame}
 
 \section{Results}
