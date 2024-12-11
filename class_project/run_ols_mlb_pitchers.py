@@ -6,8 +6,9 @@ from statsmodels.stats.diagnostic import het_breuschpagan
 from statsmodels.stats.stattools import durbin_watson
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.stats import norm
 
-raw_data = pd.read_csv("data/csv/mlb_pitchers.csv")
+raw_data = pd.read_csv("./class_project/data/csv/mlb_pitchers.csv")
 
 data = raw_data.copy()
 data.dropna(inplace=True)
@@ -36,9 +37,10 @@ data["AAV"] = np.log(data["AAV"] / data["cpi_rate"])
 data["Win_Pct"] = np.log(data["Win_Pct"])
 data["Attendance"] = np.log(data["Attendance"])
 data["Age"] = np.log(data["Age"])
-data["Is_Left_Handed"] += 1
-data["New_Team_Payroll_Prev_Year"] = np.log(data["New_Team_Payroll_Prev_Year"])
-columns_to_check = ['ERA', 'WHIP', 'SO', 'IP']
+data["New_Team_Payroll_Prev_Year"] = np.log(
+    data["New_Team_Payroll_Prev_Year"] / data["cpi_rate"]
+)
+columns_to_check = ["ERA", "WHIP", "SO", "IP"]
 data = data.loc[~(data[columns_to_check] == 0).any(axis=1)]
 data["ERA"] = np.log(data["ERA"])
 data["WHIP"] = np.log(data["WHIP"])
@@ -46,3 +48,53 @@ data["SO"] = np.log(data["SO"] + 1)
 data["IP"] = np.log(data["IP"] + 1)
 data["ERA_league"] = np.log(data["ERA_league"])
 data["WHIP_league"] = np.log(data["WHIP_league"])
+
+# drop unnecessary columns
+data.drop(
+    ["Player", "cpi", "year", "cpi_rate", "Old Club", "New Club"], axis=1, inplace=True
+)
+
+# regression
+X = data.drop("AAV", axis=1)
+X = sm.add_constant(X)
+y = data["AAV"]
+
+model = sm.OLS(y, X)
+results = model.fit()
+
+print(results.summary())
+
+# Residuals and fitted values
+residuals = results.resid
+fitted = results.fittedvalues
+
+# Plot actual vs fitted
+plt.figure(figsize=(8, 6))
+plt.scatter(y, fitted)
+plt.xlabel("Actual AAV")
+plt.ylabel("Fitted AAV")
+plt.title("Scatter Plot of Actual vs. Fitted AAV")
+plt.savefig("./class_project/images/mlb_pitchers_fitted.png")
+plt.show()
+
+# plot residuals versus independent variables
+num_vars = len(X.columns) - 1
+cols = 4
+rows = (num_vars // cols) + (num_vars % cols > 0)
+
+fig, axes = plt.subplots(rows, cols, figsize=(15, rows * 4))
+axes = axes.flatten()
+
+for i, col in enumerate(X.columns[1:]):
+    sns.scatterplot(x=data[col], y=residuals, ax=axes[i])
+    axes[i].axhline(0, color="red", linestyle="--", linewidth=1)
+    axes[i].set_title(f"Residuals vs. {col}")
+    axes[i].set_xlabel(col)
+    axes[i].set_ylabel("Residuals")
+
+for j in range(i + 1, len(axes)):
+    fig.delaxes(axes[j])
+
+plt.tight_layout()
+plt.savefig("./class_project/images/mlb_pitchers_residuals.png")
+plt.show()
