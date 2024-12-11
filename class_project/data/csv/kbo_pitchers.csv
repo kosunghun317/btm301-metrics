@@ -1,4 +1,4 @@
-Player_Name,year,Old_Club,New_Club,AAV,Win_Pct,Attendance,Age,Is_Left_Handed,ERA,WHIP,SO,IP,ERA_league,WHIP_league
+Player,year,Old Club,New Club,AAV,Win_Pct,Attendance,Age,Is_Left_Handed,ERA,WHIP,SO,IP,ERA_league,WHIP_league
 배영수,2011,삼성,삼성,8.5,0.594,455246,29,0,4.74,1.45,64,119.2,4.6,1.45
 정재훈,2012,두산,두산,7.0,0.466,1253735,31,0,2.87,1.1,65,62.2,4.16,1.41
 이상열,2012,LG,LG,3.0,0.45,1191715,34,1,3.89,1.3,27,44.0,4.16,1.41

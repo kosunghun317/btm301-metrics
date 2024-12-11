@@ -1,4 +1,4 @@
-Player_Name,year,Old_Club,New_Club,AAV,Win_Pct,Attendance,Age,Is_Left_Handed,OBP,SLG,HR,PA,OBP_league,SLG_league
+Player,year,Old Club,New Club,AAV,Win_Pct,Attendance,Age,Is_Left_Handed,OBP,SLG,HR,PA,OBP_league,SLG_league
 박용택,2011,LG,LG,8.5,0.429,1010078,31,1,0.372,0.43,9,420,0.351,0.406
 신경현,2012,한화,한화,3.5,0.45,464871,36,0,0.335,0.318,1,267,0.344,0.383
 진갑용,2012,삼성,삼성,6.0,0.612,508645,37,0,0.357,0.402,10,331,0.344,0.383
