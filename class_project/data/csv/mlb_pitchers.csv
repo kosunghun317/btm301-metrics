@@ -1,4 +1,4 @@
-Player,year,Old Club,New Club,AAV,Win_Pct,Attendance,Age 7/1/24,Is_Left_Handed,New_Team_Payroll_Prev_Year,Performance 1,Performance 2,Performance 3,Performance 4,ERA_league,WHIP_league
+Player,year,Old Club,New Club,AAV,Win_Pct,Attendance,Age 7/1/24,Is_Left_Handed,New_Team_Payroll_Prev_Year,ERA,WHIP,SO,IP,ERA_league,WHIP_league
 "Cole, Gerrit",2019,HOU,NYY,36000000.0,0.66,30817.0,29,0,208084848.0,2.5,0.89,326.0,212.1,5.895538990825688,1.5695527522935782
 "Strasburg, Stephen",2019,WSH,WSH,35000000.0,0.574,28476.0,31,0,161877935.0,3.32,1.04,251.0,209.0,5.895538990825688,1.5695527522935782
 "Wheeler, Zack",2019,NYM,PHI,23600000.0,0.531,29975.0,30,0,140711962.0,3.96,1.26,195.0,195.1,5.895538990825688,1.5695527522935782
