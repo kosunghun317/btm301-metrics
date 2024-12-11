@@ -31,27 +31,14 @@ cpi = {
 # adjust for inflation
 data["cpi"] = data["year"].map(cpi)
 data["cpi_rate"] = data["cpi"] / cpi[2010]
-
-# model is similar to Cobb-Douglas production function
-data["AAV"] = np.log(data["AAV"] / data["cpi_rate"])
-data["Win_Pct"] = np.log(data["Win_Pct"])
-data["Attendance"] = np.log(data["Attendance"])
-data["Age"] = np.log(data["Age"])
-data["New_Team_Payroll_Prev_Year"] = np.log(
-    data["New_Team_Payroll_Prev_Year"] / data["cpi_rate"]
-)
-columns_to_check = ["ERA", "WHIP", "SO", "IP"]
-data = data.loc[~(data[columns_to_check] == 0).any(axis=1)]
-data["ERA"] = np.log(data["ERA"])
-data["WHIP"] = np.log(data["WHIP"])
-data["SO"] = np.log(data["SO"] + 1)
-data["IP"] = np.log(data["IP"] + 1)
-data["ERA_league"] = np.log(data["ERA_league"])
-data["WHIP_league"] = np.log(data["WHIP_league"])
+data["AAV"] = data["AAV"] / data["cpi_rate"]
+data["New_Team_Payroll_Prev_Year"] = data["New_Team_Payroll_Prev_Year"] / data["cpi_rate"]
 
 # drop unnecessary columns
 data.drop(
-    ["Player", "cpi", "year", "cpi_rate", "Old Club", "New Club"], axis=1, inplace=True
+    [
+        "Player", "cpi", "year", "cpi_rate", "Old Club", "New Club", "ERA_league", "WHIP_league"
+    ], axis=1, inplace=True
 )
 
 # regression
@@ -75,7 +62,7 @@ plt.xlabel("Actual AAV")
 plt.ylabel("Fitted AAV")
 plt.title("Scatter Plot of Actual vs. Fitted AAV")
 plt.savefig("./class_project/images/mlb_pitchers_fitted.png")
-plt.show()
+# plt.show()
 
 # plot residuals versus independent variables
 num_vars = len(X.columns) - 1
@@ -97,4 +84,4 @@ for j in range(i + 1, len(axes)):
 
 plt.tight_layout()
 plt.savefig("./class_project/images/mlb_pitchers_residuals.png")
-plt.show()
+# plt.show()

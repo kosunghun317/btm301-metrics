@@ -7,7 +7,7 @@ from statsmodels.stats.stattools import durbin_watson
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-raw_data = pd.read_csv("./class_project/data/csv/kbo_hitters.csv")
+raw_data = pd.read_csv("./class_project/data/csv/kbo_pitchers.csv")
 
 data = raw_data.copy()
 data.dropna(inplace=True)
@@ -27,16 +27,54 @@ cpi = {
     2020: 105.0,
 }
 
+after_NC = {
+    2010: 0,
+    2011: 0,
+    2012: 0,
+    2013: 1,
+    2014: 1,
+    2015: 1,
+    2016: 1,
+    2017: 1,
+    2018: 1,
+    2019: 1,
+    2020: 1,
+}
+
+after_KT = {
+    2010: 0,
+    2011: 0,
+    2012: 0,
+    2013: 0,
+    2014: 0,
+    2015: 1,
+    2016: 1,
+    2017: 1,
+    2018: 1,
+    2019: 1,
+    2020: 1,
+}
+
 
 data["cpi"] = data["year"].map(cpi)
 data["cpi_rate"] = data["cpi"] / cpi[2010]
+
+# model is similar to Cobb-Douglas production function
 data["AAV"] = np.log(data["AAV"] / data["cpi_rate"])
+# data["after_NC"] = data["year"].map(after_NC)
+# data["after_KT"] = data["year"].map(after_KT)
 
 # drop unnecessary columns
 data.drop(
-    ["Player", "cpi", "year", "cpi_rate", "Old Club", "New Club","SLG_league", "OBP_league"], axis=1, inplace=True
+    [
+        "Player", 
+        "cpi", 
+        "year", 
+        "cpi_rate",
+        "Old Club", 
+        "New Club",
+    ], axis=1, inplace=True
 )
-
 
 # regression
 X = data.drop("AAV", axis=1)
@@ -58,8 +96,8 @@ plt.scatter(y, fitted)
 plt.xlabel("Actual AAV")
 plt.ylabel("Fitted AAV")
 plt.title("Scatter Plot of Actual vs. Fitted AAV")
-plt.savefig("./class_project/images/kbo_hitters_fitted.png")
-plt.show()
+plt.savefig("./class_project/images/kbo_pitchers_fitted.png")
+# plt.show()
 
 # plot residuals versus independent variables
 num_vars = len(X.columns) - 1
@@ -80,5 +118,5 @@ for j in range(i + 1, len(axes)):
     fig.delaxes(axes[j])
 
 plt.tight_layout()
-plt.savefig("./class_project/images/kbo_hitters_residuals.png")
-plt.show()
+plt.savefig("./class_project/images/kbo_pitchers_residuals.png")
+# plt.show()

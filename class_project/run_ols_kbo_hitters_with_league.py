@@ -27,18 +27,20 @@ cpi = {
     2020: 105.0,
 }
 
-
+# adjust for inflation
 data["cpi"] = data["year"].map(cpi)
 data["cpi_rate"] = data["cpi"] / cpi[2010]
 data["AAV"] = np.log(data["AAV"] / data["cpi_rate"])
+# data["New_Team_Payroll_Prev_Year"] = data["New_Team_Payroll_Prev_Year"] / data["cpi_rate"]
 
-# drop unnecessary columns
+# Now we only drop the unnecessary columns (excluding OBP_league and SLG_league)
 data.drop(
-    ["Player", "cpi", "year", "cpi_rate", "Old Club", "New Club","SLG_league", "OBP_league"], axis=1, inplace=True
+    ["Player", "cpi", "year", "cpi_rate", "Old Club", "New Club"],
+    axis=1,
+    inplace=True
 )
 
-
-# regression
+# OLS regression including OBP_league and SLG_league as regressors
 X = data.drop("AAV", axis=1)
 X = sm.add_constant(X)
 y = data["AAV"]
@@ -46,22 +48,22 @@ y = data["AAV"]
 model = sm.OLS(y, X)
 results = model.fit()
 
+print("OLS Results with OBP_league and SLG_league included:")
 print(results.summary())
 
 # Residuals and fitted values
 residuals = results.resid
 fitted = results.fittedvalues
 
-# Plot actual vs fitted
+# Plot actual vs fitted (new filename)
 plt.figure(figsize=(8, 6))
 plt.scatter(y, fitted)
 plt.xlabel("Actual AAV")
 plt.ylabel("Fitted AAV")
-plt.title("Scatter Plot of Actual vs. Fitted AAV")
-plt.savefig("./class_project/images/kbo_hitters_fitted.png")
-plt.show()
+plt.title("Scatter Plot of Actual vs. Fitted AAV (with league stats)")
+plt.savefig("./class_project/images/kbo_hitters_fitted_with_league.png")
 
-# plot residuals versus independent variables
+# plot residuals versus independent variables (new filename)
 num_vars = len(X.columns) - 1
 cols = 4
 rows = (num_vars // cols) + (num_vars % cols > 0)
@@ -80,5 +82,4 @@ for j in range(i + 1, len(axes)):
     fig.delaxes(axes[j])
 
 plt.tight_layout()
-plt.savefig("./class_project/images/kbo_hitters_residuals.png")
-plt.show()
+plt.savefig("./class_project/images/kbo_hitters_residuals_with_league.png")
