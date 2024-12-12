@@ -32,13 +32,24 @@ cpi = {
 data["cpi"] = data["year"].map(cpi)
 data["cpi_rate"] = data["cpi"] / cpi[2010]
 data["AAV"] = data["AAV"] / data["cpi_rate"]
-data["New_Team_Payroll_Prev_Year"] = data["New_Team_Payroll_Prev_Year"] / data["cpi_rate"]
+data["New_Team_Payroll_Prev_Year"] = (
+    data["New_Team_Payroll_Prev_Year"] / data["cpi_rate"]
+)
 
 # drop unnecessary columns
 data.drop(
     [
-        "Player", "cpi", "year", "cpi_rate", "Old Club", "New Club", "ERA_league", "WHIP_league"
-    ], axis=1, inplace=True
+        "Player",
+        "cpi",
+        "year",
+        "cpi_rate",
+        "Old Club",
+        "New Club",
+        "ERA_league",
+        "WHIP_league",
+    ],
+    axis=1,
+    inplace=True,
 )
 
 # regression

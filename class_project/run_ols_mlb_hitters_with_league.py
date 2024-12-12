@@ -31,13 +31,13 @@ cpi = {
 data["cpi"] = data["year"].map(cpi)
 data["cpi_rate"] = data["cpi"] / cpi[2010]
 data["AAV"] = np.log(data["AAV"] / data["cpi_rate"])
-data["New_Team_Payroll_Prev_Year"] = data["New_Team_Payroll_Prev_Year"] / data["cpi_rate"]
+data["New_Team_Payroll_Prev_Year"] = (
+    data["New_Team_Payroll_Prev_Year"] / data["cpi_rate"]
+)
 
 # Now we only drop the unnecessary columns (excluding OBP_league and SLG_league)
 data.drop(
-    ["Player", "cpi", "year", "cpi_rate", "Old Club", "New Club"],
-    axis=1,
-    inplace=True
+    ["Player", "cpi", "year", "cpi_rate", "Old Club", "New Club"], axis=1, inplace=True
 )
 
 # OLS regression including OBP_league and SLG_league as regressors

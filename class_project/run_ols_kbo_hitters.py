@@ -34,7 +34,18 @@ data["AAV"] = np.log(data["AAV"] / data["cpi_rate"])
 
 # drop unnecessary columns
 data.drop(
-    ["Player", "cpi", "year", "cpi_rate", "Old Club", "New Club","SLG_league", "OBP_league"], axis=1, inplace=True
+    [
+        "Player",
+        "cpi",
+        "year",
+        "cpi_rate",
+        "Old Club",
+        "New Club",
+        "SLG_league",
+        "OBP_league",
+    ],
+    axis=1,
+    inplace=True,
 )
 
 
